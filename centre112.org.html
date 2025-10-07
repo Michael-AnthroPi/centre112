@@ -1,583 +1,194 @@
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  
-  <!-- TITLE optimisé -->
-  <title>Centre112 — Premier simulateur 112 français | Alternative à 112 opérateur</title>
-  
-  <!-- META SEO -->
-  <meta name="description" content="Centre112 est le premier simulateur 112 français. Alternative moderne à 112 opérateur : appels d’urgence réalistes, gestion Pompiers, SAMU, Police et Gendarmerie. Sortie officielle 2026.">
-  <meta name="keywords" content="112, 112 opérateur, simulateur 112, jeu 112, simulation urgence, simulation pompiers, simulation SAMU, simulation police, simulation gendarmerie, alternative 112 opérateur, jeu appels d'urgence">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Centre112 - Bientôt disponible</title>
+    <style>
+        body {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #20C9DE 0%, #1a9fb0 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow-x: hidden;
+        }
 
-  <!-- Open Graph -->
-  <meta property="og:title" content="Centre112 — Premier simulateur 112 français (renouveau de 112 opérateur)">
-  <meta property="og:description" content="Découvrez Centre112, la nouvelle génération de simulateur 112. Une alternative réaliste à 112 opérateur avec gestion des urgences en France.">
-  <meta property="og:type" content="website">
-  <meta property="og:image" content="https://centre112.fr/og-image-centre112.jpg">
-  <meta property="og:url" content="https://centre112.fr/">
+        .container {
+            text-align: center;
+            padding: 2rem;
+            max-width: 600px;
+            width: 100%;
+        }
 
-  <!-- Twitter Card -->
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Centre112 — Premier simulateur 112 français">
-  <meta name="twitter:description" content="Le simulateur d’appels d’urgence 112 le plus réaliste. Alternative moderne à 112 opérateur.">
-  <meta name="twitter:image" content="https://centre112.fr/og-image-centre112.jpg">
+        .logo {
+            font-size: 3.5rem;
+            font-weight: 800;
+            color: white;
+            margin-bottom: 1rem;
+            letter-spacing: -0.02em;
+            text-shadow: 0 4px 20px rgba(0,0,0,0.3);
+        }
 
-  <!-- Fonts & Tailwind -->
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>tailwind.config = { theme: { extend: { fontFamily: { sans: ['Inter','ui-sans-serif','system-ui'] }}}}</script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+        .tagline {
+            font-size: 1.25rem;
+            color: rgba(255,255,255,0.9);
+            margin-bottom: 3rem;
+            font-weight: 300;
+            line-height: 1.6;
+        }
 
-  <!-- SCHEMA.ORG VideoGame -->
-  <script type="application/ld+json">
-  {
-    "@context":"https://schema.org",
-    "@type":"VideoGame",
-    "name":"Centre112",
-    "alternateName":"Simulateur 112 français, Alternative à 112 opérateur",
-    "description":"Centre112 est le premier simulateur 112 français. Une alternative moderne à 112 opérateur, avec gestion des urgences en temps réel : Pompiers, SAMU, Police et Gendarmerie.",
-    "genre":["Simulation","Urgence","Gestion"],
-    "operatingSystem":["Web","Windows","MacOS","iOS","Android"],
-    "url":"https://centre112.fr",
-    "author":{"@type":"Organization","name":"Centre112 Studio"},
-    "publisher":{"@type":"Organization","name":"Centre112"},
-    "datePublished":"2026-07-01"
-  }
-  </script>
+        .construction-card {
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 24px;
+            padding: 3rem 2rem;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+            border: 1px solid rgba(255,255,255,0.3);
+            margin-bottom: 2rem;
+        }
 
-  <!-- SCHEMA.ORG FAQ -->
-  <script type="application/ld+json">
-  {
-    "@context":"https://schema.org",
-    "@type":"FAQPage",
-    "mainEntity":[
-      {
-        "@type":"Question",
-        "name":"Quelle est la différence entre Centre112 et 112 opérateur ?",
-        "acceptedAnswer":{"@type":"Answer","text":"Centre112 est un simulateur 112 français moderne, avec appels vocaux réalistes et gestion des services d’urgence nationaux. Contrairement à 112 opérateur, il intègre SAMU, Pompiers, Police et Gendarmerie avec cartes réelles et météo en direct."}
-      },
-      {
-        "@type":"Question",
-        "name":"Quand sortira Centre112 ?",
-        "acceptedAnswer":{"@type":"Answer","text":"La sortie officielle de Centre112 est prévue en 2026 avec une bêta privée accessible en avant-première."}
-      },
-      {
-        "@type":"Question",
-        "name":"Centre112 est-il un jeu gratuit ?",
-        "acceptedAnswer":{"@type":"Answer","text":"Une version gratuite sera proposée. Il y aura effectivement des packs payants ainsi qu'un abonnement mensuel de 5 euros par mois permettant d'avoir des fonctionnalités additionnelles."}
-      }
-    ]
-  }
-  </script>
+        .construction-title {
+            font-size: 2rem;
+            color: #2d3748;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
 
-  <style>
-    .siren-sweep {
-      position:absolute; inset:0;
-      background: linear-gradient(120deg, rgba(255,0,31,0.06), rgba(0,86,255,0.06));
-      mix-blend-mode: screen; pointer-events:none;
-      animation: sweep 5s ease-in-out infinite alternate;
-    }
-    @keyframes sweep {
-      0% {transform: translateX(-4%) translateY(-2%) rotate(-2deg);}
-      100% {transform: translateX(4%) translateY(2%) rotate(2deg);}
-    }
-  </style>
+        .construction-text {
+            font-size: 1.1rem;
+            color: #4a5568;
+            line-height: 1.7;
+            margin-bottom: 2rem;
+        }
+
+        .progress-container {
+            background: #e2e8f0;
+            border-radius: 12px;
+            height: 8px;
+            margin: 2rem 0;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            background: linear-gradient(90deg, #20C9DE, #1a9fb0);
+            height: 100%;
+            width: 0%;
+            border-radius: 12px;
+            animation: progressAnimation 3s ease-out forwards;
+        }
+
+        @keyframes progressAnimation {
+            to {
+                width: 75%;
+            }
+        }
+
+        .floating-elements {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .floating-circle {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.1);
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .circle-1 {
+            width: 80px;
+            height: 80px;
+            top: 20%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .circle-2 {
+            width: 120px;
+            height: 120px;
+            top: 60%;
+            right: 15%;
+            animation-delay: 2s;
+        }
+
+        .circle-3 {
+            width: 60px;
+            height: 60px;
+            bottom: 20%;
+            left: 20%;
+            animation-delay: 4s;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px) rotate(0deg);
+            }
+            50% {
+                transform: translateY(-20px) rotate(180deg);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .logo {
+                font-size: 2.5rem;
+            }
+            
+            .construction-card {
+                padding: 2rem 1.5rem;
+            }
+        }
+    </style>
 </head>
-
-<body class="bg-gradient-to-b from-white via-slate-50 to-white text-slate-900">
-<!-- NAV -->
-<header class="sticky top-0 z-50 bg-white/80 backdrop-blur border-b border-slate-200">
-  <div class="mx-auto max-w-7xl px-6 h-16 flex items-center justify-between">
-    
-    <!-- Logo -->
-    <div class="flex items-center gap-2">
-      <span class="inline-flex h-8 w-8 rounded-xl bg-gradient-to-br from-rose-500 to-blue-600"></span>
-      <span class="font-extrabold tracking-tight text-lg">Centre<span class="text-rose-500">112</span></span>
+<body>
+    <div class="floating-elements">
+        <div class="floating-circle circle-1"></div>
+        <div class="floating-circle circle-2"></div>
+        <div class="floating-circle circle-3"></div>
     </div>
 
-    <!-- Desktop Nav -->
-    <nav class="hidden md:flex items-center gap-6 text-sm font-medium">
-      <a href="#features" class="hover:text-[#000091]">Fonctionnalités</a>
-      <a href="#release" class="hover:text-[#000091]">Sortie 2026</a>
-      <a href="#notify" class="hover:text-[#000091]">Inscription</a>
-      <a href="#" class="rounded-full px-4 py-2 text-white bg-gradient-to-r from-rose-500 to-blue-600 hover:opacity-90">Demander l’accès</a>
-    </nav>
-
-    <!-- Burger button -->
-    <button id="menuBtn" class="md:hidden flex items-center justify-center w-10 h-10 rounded-lg hover:bg-slate-100 focus:outline-none">
-      <svg class="w-6 h-6 text-slate-700" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/>
-      </svg>
-    </button>
-  </div>
-
-  <!-- Mobile Nav (hidden by default) -->
-  <div id="mobileMenu" class="md:hidden hidden absolute top-16 inset-x-0 bg-white/95 backdrop-blur border-t border-slate-200 shadow-lg">
-    <nav class="flex flex-col py-4 px-6 space-y-4 text-base font-medium">
-      <a href="#features" class="hover:text-[#000091]">Fonctionnalités</a>
-      <a href="#release" class="hover:text-[#000091]">Sortie 2026</a>
-      <a href="#notify" class="hover:text-[#000091]">Inscription</a>
-      <a href="#" class="rounded-lg px-4 py-2 text-center text-white bg-gradient-to-r from-rose-500 to-blue-600 hover:opacity-90">Demander l’accès</a>
-    </nav>
-  </div>
-</header>
-
-<script>
-  // Toggle mobile menu
-  const menuBtn = document.getElementById("menuBtn");
-  const mobileMenu = document.getElementById("mobileMenu");
-  menuBtn.addEventListener("click", () => {
-    mobileMenu.classList.toggle("hidden");
-  });
-</script>
-
-
- <!-- HERO PREMIUM CLAIR -->
-<section class="relative overflow-hidden min-h-[90vh] flex items-center justify-center text-center bg-gradient-to-br from-[#e5ebff] via-white to-[#f6f6f6]">
-  <!-- Sirène overlay subtile -->
-  <div class="absolute inset-0 bg-gradient-to-r from-[rgba(255,0,31,0.08)] to-[rgba(0,86,255,0.08)] mix-blend-multiply animate-pulse"></div>
-
-  <!-- Halo lumineux -->
-  <div class="absolute -top-40 -left-40 w-[35rem] h-[35rem] bg-red-300/40 rounded-full blur-3xl"></div>
-  <div class="absolute -bottom-40 -right-40 w-[35rem] h-[35rem] bg-blue-300/40 rounded-full blur-3xl"></div>
-
-  <!-- Contenu -->
-  <div class="relative z-10 max-w-4xl px-6">
-    <h1 id="heroTitle" class="text-4xl md:text-6xl font-extrabold tracking-tight opacity-0 text-[#000091]">
-      🚨 Centre112  
-      <span class="block text-2xl md:text-3xl mt-3 font-semibold text-slate-700">Premier simulateur 112 français</span>
-    </h1>
-    <p id="heroSub" class="mt-6 text-lg md:text-xl text-slate-600 max-w-2xl mx-auto opacity-0">
-      Une nouvelle génération de simulation réaliste : météo, trafic, cartes et coordination entre services.  
-      <span class="font-semibold text-[#000091]">Sortie officielle 2026.</span>
-    </p>
-    <div id="heroCtas" class="mt-10 flex flex-col sm:flex-row gap-4 justify-center opacity-0">
-      <a href="#notify" class="inline-flex items-center justify-center rounded-xl px-8 py-4 text-white bg-[#000091] shadow-lg hover:bg-[#1a1aff] transition">
-        🔔 Être prévenu au lancement
-      </a>
-      <a href="#features" class="inline-flex items-center justify-center rounded-xl px-8 py-4 border border-[#000091] text-[#000091] font-semibold bg-white hover:bg-[#e5ebff] transition">
-        Découvrir les fonctionnalités
-      </a>
-    </div>
-  </div>
-</section>
-
-	<!-- SECTION MULTIJOUEUR / APPELS D'URGENCE -->
-<section id="multiplayer" class="relative py-28 bg-gradient-to-br from-[#f6f6f6] via-white to-[#e5ebff] overflow-hidden">
-  <!-- Décor -->
-  <div class="absolute top-0 left-0 w-[25rem] h-[25rem] bg-blue-200/50 blur-3xl rounded-full"></div>
-  <div class="absolute bottom-0 right-0 w-[25rem] h-[25rem] bg-rose-200/50 blur-3xl rounded-full"></div>
-
-  <div class="relative z-10 mx-auto max-w-7xl px-6 grid md:grid-cols-2 gap-16 items-center">
-    
-    <!-- Texte -->
-    <div class="text-left">
-      <h2 class="text-3xl md:text-5xl font-extrabold leading-tight text-[#000091]">
-        📞 Répondez aux appels d’urgence<br>
-        <span class="text-slate-800">et coordonnez vos équipes en temps réel</span>
-      </h2>
-      <p class="mt-6 text-lg text-slate-700 leading-relaxed">
-        Avec <strong>Centre112</strong>, plongez dans le <span class="text-[#000091] font-semibold">simulateur 112 le plus réaliste en France</span>.  
-        Recevez des <strong>appels d’urgence interactifs</strong>, analysez la gravité de chaque situation et 
-        collaborez avec vos amis pour <em>dispatcher Pompiers, SAMU, Police et Gendarmerie</em> efficacement.  
-      </p>
-      <p class="mt-3 text-base text-slate-600">
-        Une <strong>expérience coopérative unique</strong>, conçue comme 
-        <span class="font-semibold">l’alternative moderne à 112 opérateur</span>, avec une carte dynamique, météo et trafic en direct.
-      </p>
-
-      <div class="mt-8 flex gap-4">
-        <a href="#notify" class="inline-flex items-center justify-center rounded-xl px-8 py-4 text-white bg-gradient-to-r from-rose-500 to-blue-600 shadow-lg hover:scale-105 transform transition">
-          🚀 Rejoindre l’aventure
-        </a>
-        <a href="#features" class="inline-flex items-center justify-center rounded-xl px-8 py-4 border border-[#000091] text-[#000091] font-semibold bg-white hover:bg-[#e5ebff] transition">
-          Découvrir les fonctionnalités
-        </a>
-      </div>
-    </div>
-
-    <!-- Visuel premium -->
-<div class="relative">
-  <div class="relative mx-auto w-full max-w-md rounded-3xl bg-white shadow-xl border border-slate-200 overflow-hidden">
-    <img src="centre112.png" alt="Centre112 - Centre d’opérations d’urgence" class="w-full h-auto object-cover">
-    <p class="absolute bottom-4 inset-x-0 text-center text-sm text-white bg-black/50 py-1">
-      Centre112 — Police, Gendarmerie, SAMU/SMUR, Pompiers
-    </p>
-  </div>
-</div>
-
-
-  </div>
-</section>
-
-<!-- SECTION USURE VEHICULES & MATERIEL -->
-<section id="usure" class="relative py-24 bg-gradient-to-b from-white via-[#f6f6f6] to-white overflow-hidden">
-  <div class="relative z-10 mx-auto max-w-6xl px-6">
-    <h2 class="text-3xl md:text-5xl font-extrabold text-[#000091] text-center">
-      ⚡ Usure des véhicules & du matériel
-    </h2>
-    <p class="mt-5 text-lg text-slate-700 max-w-3xl mx-auto text-center leading-relaxed">
-      Dans <strong>Centre112</strong>, chaque mission met à l’épreuve non seulement vos <span class="text-[#000091] font-semibold">véhicules</span> mais aussi le <span class="text-[#000091] font-semibold">matériel embarqué</span>.  
-      Gérez vos ressources avec précision pour éviter les pannes et les ruptures de stock en pleine urgence.
-    </p>
-
-    <!-- Grid -->
-    <div class="mt-16 grid gap-8 md:grid-cols-2">
-      
-      <!-- Carte véhicules -->
-      <div class="rounded-2xl border border-slate-200 bg-white shadow-lg p-8 hover:-translate-y-1 hover:shadow-xl transition">
-        <div class="text-4xl">🚗</div>
-        <h3 class="mt-4 text-xl font-semibold text-[#000091]">Véhicules opérationnels</h3>
-        <p class="mt-3 text-slate-600 text-sm leading-relaxed">
-          Chaque intervention ajoute <strong>1 à 3% d’usure</strong> au véhicule.<br>
-          À <strong>100%</strong>, il part automatiquement au garage pour <strong>24h de réparation</strong>.  
-          Optimisez votre flotte avec des <em>clés à molette</em> ou des <em>packs maintenance</em>.
-        </p>
-      </div>
-
-      <!-- Carte matériel -->
-      <div class="rounded-2xl border border-slate-200 bg-white shadow-lg p-8 hover:-translate-y-1 hover:shadow-xl transition">
-        <div class="text-4xl">🧰</div>
-        <h3 class="mt-4 text-xl font-semibold text-[#000091]">Matériel embarqué</h3>
-        <p class="mt-3 text-slate-600 text-sm leading-relaxed">
-          Chaque intervention consomme entre <strong>5 et 15% d’usure</strong> du matériel utilisé.  
-          À <strong>100% d’usure</strong>, le matériel devient inutilisable et doit être remplacé via la <em>boutique</em>.  
-          Anticipez vos stocks pour ne jamais être pris au dépourvu.
-        </p>
-      </div>
-    </div>
-
-    <!-- CTA -->
-    <div class="mt-12 text-center">
-      <a href="#notify" class="inline-flex items-center justify-center rounded-xl px-8 py-4 text-white bg-gradient-to-r from-rose-500 to-blue-600 shadow-lg hover:scale-105 transition">
-        🔔 Être prévenu au lancement
-      </a>
-    </div>
-  </div>
-</section>
-
-
-<!-- SECTION UPDATES + FORUM -->
-<section id="updates" class="relative py-24 bg-gradient-to-b from-white to-slate-50 overflow-hidden">
-  <!-- Décor -->
-  <div class="absolute -top-16 left-0 w-[20rem] h-[20rem] bg-blue-200/40 blur-3xl rounded-full"></div>
-  <div class="absolute -bottom-20 right-0 w-[20rem] h-[20rem] bg-rose-200/40 blur-3xl rounded-full"></div>
-
-  <div class="relative z-10 mx-auto max-w-7xl px-6">
-    <!-- Header -->
-    <div class="text-center">
-      <h2 class="text-3xl md:text-5xl font-extrabold text-[#000091]">
-        🔄 Mises à jour régulières & communauté active
-      </h2>
-      <p class="mt-4 text-lg text-slate-700 max-w-3xl mx-auto">
-        Centre112 est <strong>un jeu en constante évolution</strong>, suivi par une <span class="font-semibold text-[#000091]">équipe dédiée</span>.  
-        En plus des mises à jour fréquentes, un <span class="font-semibold">forum officiel</span> sera disponible pour que les joueurs échangent, partagent leurs stratégies et construisent ensemble l’avenir du simulateur.
-      </p>
-    </div>
-
-    <!-- Grid Features -->
-    <div class="mt-16 grid gap-8 md:grid-cols-2 lg:grid-cols-4">
-      <div class="rounded-2xl border border-slate-200 bg-white shadow-lg p-8 hover:shadow-xl transition">
-        <div class="h-12 w-12 flex items-center justify-center rounded-full bg-gradient-to-br from-blue-500 to-indigo-600 text-white text-2xl shadow">
-          🚓
+    <div class="container">
+        <div class="logo">Centre112</div>
+        <div class="tagline">Innovation • Excellence • Avenir</div>
+        
+        <div class="construction-card">
+            <div class="construction-title">🚧 Site en construction</div>
+            <div class="construction-text">
+                Nous préparons quelque chose d'exceptionnel pour vous. Notre équipe travaille sans relâche pour vous offrir une expérience unique et innovante.
+            </div>
+            
+            <div class="progress-container">
+                <div class="progress-bar"></div>
+            </div>
+            
+            <div class="construction-text">
+                <strong>Lancement prévu : Très bientôt</strong><br>
+                Restez connectés pour découvrir ce qui vous attend !
+            </div>
         </div>
-        <h3 class="mt-4 font-semibold text-lg text-[#000091]">Nouveaux scénarios</h3>
-        <p class="mt-2 text-sm text-slate-600">
-          Incendies, accidents, opérations police/gendarmerie, interventions médicales : du contenu inédit ajouté régulièrement.
-        </p>
-      </div>
-
-      <div class="rounded-2xl border border-slate-200 bg-white shadow-lg p-8 hover:shadow-xl transition">
-        <div class="h-12 w-12 flex items-center justify-center rounded-full bg-gradient-to-br from-rose-500 to-orange-500 text-white text-2xl shadow">
-          ⚙️
-        </div>
-        <h3 class="mt-4 font-semibold text-lg text-[#000091]">Améliorations techniques</h3>
-        <p class="mt-2 text-sm text-slate-600">
-          Performances optimisées, équilibrage de l’usure véhicules/matériel et appels IA toujours plus réalistes.
-        </p>
-      </div>
-
-      <div class="rounded-2xl border border-slate-200 bg-white shadow-lg p-8 hover:shadow-xl transition">
-        <div class="h-12 w-12 flex items-center justify-center rounded-full bg-gradient-to-br from-green-500 to-emerald-600 text-white text-2xl shadow">
-          👥
-        </div>
-        <h3 class="mt-4 font-semibold text-lg text-[#000091]">Équipe dédiée</h3>
-        <p class="mt-2 text-sm text-slate-600">
-          Une équipe passionnée, disponible en continu pour corriger les bugs, écouter vos retours et enrichir Centre112.
-        </p>
-      </div>
-
-      <div class="rounded-2xl border border-slate-200 bg-white shadow-lg p-8 hover:shadow-xl transition">
-        <div class="h-12 w-12 flex items-center justify-center rounded-full bg-gradient-to-br from-purple-500 to-pink-500 text-white text-2xl shadow">
-          💬
-        </div>
-        <h3 class="mt-4 font-semibold text-lg text-[#000091]">Forum officiel</h3>
-        <p class="mt-2 text-sm text-slate-600">
-          Un espace d’échange entre joueurs pour partager vos expériences, donner vos conseils et rejoindre la communauté Centre112.
-        </p>
-      </div>
     </div>
 
-    <!-- CTA -->
-    <div class="mt-16 text-center">
-      <a href="#notify" class="inline-flex items-center justify-center rounded-xl px-8 py-4 text-white bg-gradient-to-r from-rose-500 to-blue-600 shadow-lg hover:scale-105 transition">
-        🔔 Être informé des mises à jour & ouverture du forum
-      </a>
-    </div>
-  </div>
-</section>
-
- <!-- FEATURES PREMIUM -->
-<section id="features" class="py-24 bg-gradient-to-b from-white via-[#f6f6f6] to-white relative">
-  <div class="mx-auto max-w-7xl px-6 relative z-10">
-    <!-- Heading -->
-    <h2 class="text-3xl md:text-4xl font-extrabold text-center text-[#000091]">
-      Conçu pour un réalisme opérationnel
-    </h2>
-    <p class="mt-3 text-center text-slate-600 max-w-2xl mx-auto">
-      Centre112 offre une immersion fidèle avec des outils modernes inspirés des véritables services d’urgence.
-    </p>
-
-    <!-- Grid -->
-    <div class="mt-16 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
-      <!-- Card -->
-      <div class="group rounded-2xl border border-slate-200 bg-white/80 backdrop-blur shadow-sm hover:shadow-xl transition transform hover:-translate-y-1">
-        <div class="p-6 flex flex-col items-center text-center">
-          <div class="h-14 w-14 flex items-center justify-center rounded-full bg-gradient-to-br from-red-500 to-rose-400 text-white text-2xl shadow-lg">
-            🎙️
-          </div>
-          <h3 class="mt-4 font-semibold text-lg text-[#000091]">Appels IA naturels</h3>
-          <p class="mt-2 text-sm text-slate-600">
-            Voix réalistes et émotionnelles simulant la pression des véritables appels 112.
-          </p>
-        </div>
-      </div>
-
-      <!-- Card -->
-      <div class="group rounded-2xl border border-slate-200 bg-white/80 backdrop-blur shadow-sm hover:shadow-xl transition transform hover:-translate-y-1">
-        <div class="p-6 flex flex-col items-center text-center">
-          <div class="h-14 w-14 flex items-center justify-center rounded-full bg-gradient-to-br from-blue-600 to-blue-400 text-white text-2xl shadow-lg">
-            🗺️
-          </div>
-          <h3 class="mt-4 font-semibold text-lg text-[#000091]">Carte & Routage</h3>
-          <p class="mt-2 text-sm text-slate-600">
-            OpenStreetMap + OSRM/GraphHopper pour des itinéraires et délais réalistes.
-          </p>
-        </div>
-      </div>
-
-      <!-- Card -->
-      <div class="group rounded-2xl border border-slate-200 bg-white/80 backdrop-blur shadow-sm hover:shadow-xl transition transform hover:-translate-y-1">
-        <div class="p-6 flex flex-col items-center text-center">
-          <div class="h-14 w-14 flex items-center justify-center rounded-full bg-gradient-to-br from-amber-500 to-yellow-400 text-white text-2xl shadow-lg">
-            🌦️
-          </div>
-          <h3 class="mt-4 font-semibold text-lg text-[#000091]">Météo & Trafic</h3>
-          <p class="mt-2 text-sm text-slate-600">
-            Conditions en direct impactant trajets, risques et coordination des secours.
-          </p>
-        </div>
-      </div>
-
-      <!-- Card -->
-      <div class="group rounded-2xl border border-slate-200 bg-white/80 backdrop-blur shadow-sm hover:shadow-xl transition transform hover:-translate-y-1">
-        <div class="p-6 flex flex-col items-center text-center">
-          <div class="h-14 w-14 flex items-center justify-center rounded-full bg-gradient-to-br from-emerald-600 to-green-400 text-white text-2xl shadow-lg">
-            🧭
-          </div>
-          <h3 class="mt-4 font-semibold text-lg text-[#000091]">Commandement</h3>
-          <p class="mt-2 text-sm text-slate-600">
-            Gestion des plannings, spécialités, fatigue et inter-services : SAMU, Pompiers, Police, Gendarmerie.
-          </p>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Halo décoratif -->
-  <div class="absolute top-0 left-0 w-[20rem] h-[20rem] bg-blue-200 rounded-full blur-3xl opacity-40"></div>
-  <div class="absolute bottom-0 right-0 w-[20rem] h-[20rem] bg-red-200 rounded-full blur-3xl opacity-40"></div>
-</section>
-
-<!-- RELEASE PREMIUM -->
-<section id="release" class="relative py-24 bg-gradient-to-b from-[#f6f6f6] to-white overflow-hidden">
-  <!-- Décor halos -->
-  <div class="absolute top-0 left-0 w-[20rem] h-[20rem] bg-blue-200/50 blur-3xl rounded-full"></div>
-  <div class="absolute bottom-0 right-0 w-[20rem] h-[20rem] bg-red-200/50 blur-3xl rounded-full"></div>
-
-  <div class="relative z-10 mx-auto max-w-4xl px-6 text-center">
-    <h2 class="text-3xl md:text-4xl font-extrabold text-[#000091]">
-      📅 Sortie officielle : 2026
-    </h2>
-    <p class="mt-3 text-slate-600 max-w-2xl mx-auto">
-      Une <strong>bêta privée</strong> ouvrira avant le lancement.<br>
-      Objectif : l’expérience <span class="text-[#000091] font-semibold">112</span> la plus réaliste et la plus fluide jamais conçue.
-    </p>
-
-    <!-- Compteur -->
-    <div class="mt-12 flex justify-center gap-6">
-      <div class="w-28 h-28 flex flex-col items-center justify-center rounded-2xl bg-white shadow-lg border border-slate-200">
-        <span id="d" class="text-4xl md:text-5xl font-extrabold text-[#000091]">00</span>
-        <span class="mt-1 text-xs font-medium text-slate-500 uppercase">Jours</span>
-      </div>
-      <div class="w-28 h-28 flex flex-col items-center justify-center rounded-2xl bg-white shadow-lg border border-slate-200">
-        <span id="h" class="text-4xl md:text-5xl font-extrabold text-[#000091]">00</span>
-        <span class="mt-1 text-xs font-medium text-slate-500 uppercase">Heures</span>
-      </div>
-      <div class="w-28 h-28 flex flex-col items-center justify-center rounded-2xl bg-white shadow-lg border border-slate-200">
-        <span id="m" class="text-4xl md:text-5xl font-extrabold text-[#000091]">00</span>
-        <span class="mt-1 text-xs font-medium text-slate-500 uppercase">Minutes</span>
-      </div>
-    </div>
-  </div>
-</section>
-<!-- SECTION BOUTIQUE PREMIUM -->
-<section id="boutique" class="relative py-28 bg-gradient-to-br from-[#f6f6f6] via-white to-[#e5ebff] overflow-hidden">
-  <!-- Décor -->
-  <div class="absolute top-0 left-0 w-[25rem] h-[25rem] bg-blue-200/40 blur-3xl rounded-full"></div>
-  <div class="absolute bottom-0 right-0 w-[25rem] h-[25rem] bg-rose-200/40 blur-3xl rounded-full"></div>
-
-  <div class="relative z-10 mx-auto max-w-7xl px-6">
-    <!-- Titre -->
-    <div class="text-center">
-      <h2 class="text-4xl md:text-5xl font-extrabold text-[#000091]">
-        🛒 La Boutique Centre112
-      </h2>
-      <p class="mt-4 text-lg text-slate-700 max-w-3xl mx-auto">
-        Construisez, entretenez et équipez vos équipes grâce aux <strong>pièces</strong>.  
-        Dès le début, vous recevez <span class="text-[#000091] font-semibold">200.000 pièces</span> pour lancer votre base et vos premiers véhicules.
-      </p>
-    </div>
-
-    <!-- Grid Produits -->
-    <div class="mt-16 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-      <!-- Carte -->
-      <div class="rounded-3xl border border-slate-200 bg-white shadow-lg p-8 hover:shadow-xl hover:-translate-y-1 transition text-center">
-        <div class="h-14 w-14 mx-auto flex items-center justify-center rounded-full bg-gradient-to-br from-yellow-400 to-orange-500 text-2xl text-white shadow-lg">⛽</div>
-        <h3 class="mt-4 font-semibold text-lg text-[#000091]">Carburant & logistique</h3>
-        <p class="mt-2 text-sm text-slate-600">Bidons de gasoil, kits pneus hiver et GPS tactiques pour prolonger vos missions.</p>
-      </div>
-
-      <div class="rounded-3xl border border-slate-200 bg-white shadow-lg p-8 hover:shadow-xl hover:-translate-y-1 transition text-center">
-        <div class="h-14 w-14 mx-auto flex items-center justify-center rounded-full bg-gradient-to-br from-slate-600 to-slate-900 text-2xl text-white shadow-lg">🛠️</div>
-        <h3 class="mt-4 font-semibold text-lg text-[#000091]">Maintenance véhicules</h3>
-        <p class="mt-2 text-sm text-slate-600">Clés à molette, packs d’entretien et réparations express pour limiter l’usure.</p>
-      </div>
-
-      <div class="rounded-3xl border border-slate-200 bg-white shadow-lg p-8 hover:shadow-xl hover:-translate-y-1 transition text-center">
-        <div class="h-14 w-14 mx-auto flex items-center justify-center rounded-full bg-gradient-to-br from-red-400 to-rose-600 text-2xl text-white shadow-lg">🩺</div>
-        <h3 class="mt-4 font-semibold text-lg text-[#000091]">Matériel médical</h3>
-        <p class="mt-2 text-sm text-slate-600">Trousses de secours, défibrillateurs et kits de réanimation pour vos équipes SAMU/SMUR.</p>
-      </div>
-
-      <div class="rounded-3xl border border-slate-200 bg-white shadow-lg p-8 hover:shadow-xl hover:-translate-y-1 transition text-center">
-        <div class="h-14 w-14 mx-auto flex items-center justify-center rounded-full bg-gradient-to-br from-orange-500 to-red-600 text-2xl text-white shadow-lg">🔥</div>
-        <h3 class="mt-4 font-semibold text-lg text-[#000091]">Équipement pompiers</h3>
-        <p class="mt-2 text-sm text-slate-600">Appareils respiratoires (ARI), caméras thermiques et extincteurs portables.</p>
-      </div>
-
-      <div class="rounded-3xl border border-slate-200 bg-white shadow-lg p-8 hover:shadow-xl hover:-translate-y-1 transition text-center">
-        <div class="h-14 w-14 mx-auto flex items-center justify-center rounded-full bg-gradient-to-br from-blue-500 to-indigo-700 text-2xl text-white shadow-lg">🚔</div>
-        <h3 class="mt-4 font-semibold text-lg text-[#000091]">Police & gendarmerie</h3>
-        <p class="mt-2 text-sm text-slate-600">Gilets pare-balles, kits de contrôle routier, drones de surveillance pour vos unités.</p>
-      </div>
-
-      <div class="rounded-3xl border border-slate-200 bg-white shadow-lg p-8 hover:shadow-xl hover:-translate-y-1 transition text-center">
-        <div class="h-14 w-14 mx-auto flex items-center justify-center rounded-full bg-gradient-to-br from-purple-500 to-pink-500 text-2xl text-white shadow-lg">💎</div>
-        <h3 class="mt-4 font-semibold text-lg text-[#000091]">Packs Premium</h3>
-        <p class="mt-2 text-sm text-slate-600">Packs multi-services combinés pour anticiper les crises et renforcer vos équipes.</p>
-      </div>
-    </div>
-
-    <!-- Comparatif Pièces -->
-    <div class="mt-20">
-      <h3 class="text-2xl font-bold text-[#000091] text-center">💰 Comment obtenir des pièces ?</h3>
-      <div class="mt-8 grid md:grid-cols-3 gap-6">
-        <div class="rounded-2xl bg-white shadow p-6 text-center border border-slate-200">
-          <div class="text-3xl">✅</div>
-          <p class="mt-2 font-semibold">Interventions réussies</p>
-          <p class="mt-1 text-green-600 font-bold">+500 pièces</p>
-			        <p class="mt-1 text-xs text-slate-500">+ 100 pts au classement</p>
-        </div>
-        <div class="rounded-2xl bg-white shadow p-6 text-center border border-slate-200">
-          <div class="text-3xl">❌</div>
-          <p class="mt-2 font-semibold">Interventions ratées</p>
-          <p class="mt-1 text-red-600 font-bold">-100 pièces</p>
-          <p class="mt-1 text-xs text-slate-500">-50 pts au classement</p>
-        </div>
-        <div class="rounded-2xl bg-white shadow p-6 text-center border border-slate-200">
-          <div class="text-3xl">💶</div>
-          <p class="mt-2 font-semibold">Recharge (€ → pièces)</p>
-          <p class="mt-1 text-slate-700">Achetez des <strong>pièces</strong> avec des euros</p>
-          <p class="mt-1 text-xs text-slate-500">👉 Pas de Pay-to-Win : seuls les <strong>pièces</strong> comptent</p>
-        </div>
-      </div>
-    </div>
-
-    <!-- CTA -->
-    <div class="mt-16 text-center">
-      <a href="#notify" class="inline-flex items-center justify-center rounded-xl px-10 py-4 text-white bg-gradient-to-r from-rose-500 to-blue-600 shadow-lg hover:scale-105 transition text-lg font-semibold">
-        🔔 Être prévenu de l’ouverture de la boutique
-      </a>
-    </div>
-  </div>
-</section>
-
-
-
-
-  <!-- NOTIFY -->
-  <section id="notify" class="py-20">
-    <div class="mx-auto max-w-7xl px-6">
-      <div class="rounded-3xl border border-slate-200 bg-white p-8 md:p-12 shadow-xl">
-        <div class="grid md:grid-cols-2 gap-10 items-center">
-          <div>
-            <h3 class="text-2xl md:text-3xl font-extrabold">🔔 Soyez prévenu au lancement</h3>
-            <p class="mt-2 text-slate-600">Inscrivez votre email pour recevoir l’accès à la bêta et les annonces clés.</p>
-          </div>
-          <form class="flex flex-col sm:flex-row gap-3">
-            <input type="email" required placeholder="Votre email"
-                   class="w-full sm:flex-1 rounded-xl border border-slate-300 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-rose-400" />
-            <button type="submit"
-              class="rounded-xl px-6 py-3 text-white bg-gradient-to-r from-rose-500 to-blue-600 shadow hover:opacity-90">
-              Je m’inscris
-            </button>
-          </form>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- FOOTER -->
-  <footer class="py-10 border-t border-slate-200 bg-white/70">
-    <div class="mx-auto max-w-7xl px-6 flex flex-col md:flex-row items-center justify-between gap-3 text-sm text-slate-500">
-      <p>© 2025–2026 Centre112. Tous droits réservés.</p>
-      <p>Premier simulateur d’appels d’urgence 112 en France.</p>
-    </div>
-  </footer>
-
-  <!-- GSAP + Countdown -->
-  <script>
-    gsap.to("#heroTitle", {opacity:1, y:-12, duration:1, ease:"power3.out"});
-    gsap.to("#heroSub",   {opacity:1, y:-8,  duration:1, delay:0.25, ease:"power3.out"});
-    gsap.to("#heroCtas",  {opacity:1, y:-4,  duration:1, delay:0.45, ease:"power3.out"});
-
-    const target = new Date("2026-02-01T00:00:00").getTime();
-    const d = document.getElementById("d"), h = document.getElementById("h"), m = document.getElementById("m");
-    setInterval(()=>{
-      const now = Date.now(), diff = Math.max(0, target - now);
-      const days = Math.floor(diff / (1000*60*60*24));
-      const hours = Math.floor((diff % (1000*60*60*24)) / (1000*60*60));
-      const mins = Math.floor((diff % (1000*60*60)) / (1000*60));
-      d.textContent = String(days).padStart(2,"0");
-      h.textContent = String(hours).padStart(2,"0");
-      m.textContent = String(mins).padStart(2,"0");
-    }, 1000);
-  </script>
-</body>
+    <script>
+        // Animation d'apparition au chargement
+        window.addEventListener('load', () => {
+            document.querySelector('.container').style.opacity = '0';
+            document.querySelector('.container').style.transform = 'translateY(30px)';
+            document.querySelector('.container').style.transition = 'all 0.8s ease';
+            
+            setTimeout(() => {
+                document.querySelector('.container').style.opacity = '1';
+                document.querySelector('.container').style.transform = 'translateY(0)';
+            }, 100);
+        });
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'98ae0c9f36037028',t:'MTc1OTg0NjkzMi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
-
