@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guide SimulForge & SimulPhone</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/js/all.min.js" integrity="sha512-u3fPA7V8qQmhBPNT5quvaXVa1mnnLSXUep5PS1qo5NRzHwG19aHmNJnj1Q8hpA/ikloKP5zfxfusionaccpBJZag==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+        
+        :root {
+            --light-gray: #f6f6f6;
+            --light-blue: #50b8ff;
+            --dark-blue: #036093;
+            --gold: #face37;
+            --white: #ffffff;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--light-gray);
+        }
+        
+        .step {
+            display: none;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+        }
+        
+        .step.active {
+            display: block;
+            opacity: 1;
+        }
+        
+        .platform-tab {
+            transition: all 0.3s ease;
+            border-radius: 20px;
+        }
+        
+        .platform-tab.active {
+            background-color: var(--dark-blue);
+            color: var(--white);
+        }
+        
+        .screenshot {
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            border-radius: 20px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .progress-bar-container {
+            transition: width 0.5s ease;
+        }
+
+        .btn {
+            border-radius: 20px;
+            transition: all 0.3s ease;
+        }
+        
+        .card {
+            border-radius: 20px;
+        }
+        
+        .progress-container {
+            position: relative;
+        }
+        
+        .progress-percentage {
+            position: absolute;
+            top: -20px;
+            /* On le positionne par rapport à la barre de progression dans le JS */
+            background-color: var(--dark-blue);
+            color: white;
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-size: 12px;
+            font-weight: 600;
+            transform: translateX(-50%);
+            transition: left 0.5s ease;
+        }
+    </style>
+</head>
+<body>
+    <div class="min-h-screen">
+        <header class="bg-[#036093] text-white py-6">
+            <div class="container mx-auto px-4">
+                <h1 class="text-3xl font-bold text-center">Guide d'utilisation SimulForge & SimulPhone</h1>
+                <p class="text-center mt-2 text-[#f6f6f6]">Formation et simulation d'appels d'urgence</p>
+            </div>
+        </header>
+        
+        <div id="guide-container" class="container mx-auto px-4 py-8">
+            <div class="flex justify-center mb-8">
+                <div class="bg-[#ffffff] rounded-[20px] shadow-md inline-flex">
+                    <button id="simulforge-tab" class="platform-tab active px-6 py-3 rounded-[20px] font-medium">SimulForge</button>
+                    <button id="simulphone-tab" class="platform-tab px-6 py-3 rounded-[20px] font-medium">SimulPhone</button>
+                </div>
+            </div>
+            
+            <div class="progress-container w-full mb-10 mt-4">
+                <div id="progress-percentage" class="progress-percentage" style="left: 0%;">0%</div>
+                <div class="w-full bg-[#e0e0e0] rounded-full h-2.5 border border-[#50b8ff]">
+                    <div id="progress-bar" class="bg-[#50b8ff] h-2.5 rounded-full progress-bar-container" style="width: 0%"></div>
+                </div>
+            </div>
+            
+            <div id="steps-container">
+                <div id="step-1" class="step active bg-[#ffffff] rounded-[20px] shadow-md p-6 mb-6">
+                    <h2 class="text-2xl font-semibold text-[#036093] mb-4">Étape 1: Connexion à SimulForge</h2>
+                    <div class="flex flex-col md:flex-row gap-6">
+                        <div class="md:w-1/2">
+                            <ol class="list-decimal pl-5 space-y-3">
+                                <li>Ouvrez votre navigateur et accédez à <span class="font-semibold text-[#50b8ff]">simulforge.simulphone.com</span></li>
+                                <li>Entrez votre adresse e-mail de formateur et votre mot de passe</li>
+                                <li>Cliquez sur le bouton "Connexion"</li>
+                            </ol>
+                        </div>
+                        <div class="md:w-1/2">
+                            <div class="screenshot bg-[#f6f6f6] relative">
+                                <img src="https://raw.githubusercontent.com/Michael-AnthroPi/SimulPhoneAcademie/f79cc13feb10fe5a48bc1dd9a69b0bc07fa16cc5/Design%20sans%20titre.gif" class="w-full h-auto">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-6 flex justify-end">
+                        <button class="next-step btn bg-[#036093] hover:bg-[#025380] text-white font-medium py-2 px-6">Suivant</button>
+                    </div>
+                </div>
+                
+                <div id="step-2" class="step bg-[#ffffff] rounded-[20px] shadow-md p-6 mb-6">
+                    <h2 class="text-2xl font-semibold text-[#036093] mb-4">Étape 2: Créer une Formation</h2>
+                    <div class="flex flex-col md:flex-row gap-6">
+                        <div class="md:w-1/2">
+                           <ol class="list-decimal pl-5 space-y-3">
+                                <li>Sur le tableau de bord, en face de "Formations", cliquez sur <span class="font-semibold text-[#fb9b4e]">"+"</span></li>
+                                <li>Le champ "Client" sera automatiquement rempli avec votre établissement</li>
+                                <li>Sélectionnez un "Responsable de Formation" parmi les formateurs disponibles</li>
+                                <li>Un mot de passe de formation sera généré automatiquement (vous pouvez le modifier)</li>
+<li>Choisissez un nom à donner à votre formation</li>
+                                <li>Cliquez sur "Ajouter" pour créer la formation</li>
+                           </ol>
+                        </div>
+                        <div class="md:w-1/2">
+                            <div class="screenshot bg-[#f6f6f6] relative">
+                                <img src="https://raw.githubusercontent.com/Michael-AnthroPi/SimulPhoneAcademie/8fe36e93b257c8c899176622b51ad9ee4d5bf4f7/2.png" alt="Fenêtre de création d'une formation sur SimulForge" class="w-full h-auto">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-6 flex justify-between">
+                        <button class="prev-step btn bg-[#f6f6f6] hover:bg-[#e0e0e0] text-[#036093] font-medium py-2 px-6 border border-[#036093]">Précédent</button>
+                        <button class="next-step btn bg-[#036093] hover:bg-[#025380] text-white font-medium py-2 px-6">Suivant</button>
+                    </div>
+                </div>
+
+                <div id="step-3" class="step bg-[#ffffff] rounded-[20px] shadow-md p-6 mb-6">
+                    <h2 class="text-2xl font-semibold text-[#036093] mb-4">Étape 3: Ajouter une Session à la Formation</h2>
+                    <div class="flex flex-col md:flex-row gap-6">
+                        <div class="md:w-1/2">
+                            <ol class="list-decimal pl-5 space-y-3">
+                                <li>Dans la formation créée, cliquez sur <span class="font-semibold text-[#fb9b4e]">"Ajouter une Session"</span></li>
+                                <li>Indiquez la date et la période (matin, après-midi)</li>
+<li>Choisissez un nom à donner à votre session de formation</li>
+                                <li>Sélectionnez les "Formateurs" qui animeront la session</li>
+                                <li>Sélectionnez les "Stagiaires" qui participeront</li>
+                                <li>Choisissez le "Module" que vous allez travailler</li>
+                                <li>Cliquez sur "Créer la Session"</li>
+                            </ol>
+                        </div>
+                        <div class="md:w-1/2">
+                            <div class="screenshot bg-[#f6f6f6] relative">
+                                <img src="https://raw.githubusercontent.com/Michael-AnthroPi/SimulPhoneAcademie/8fe36e93b257c8c899176622b51ad9ee4d5bf4f7/3.png" alt="Formulaire d'ajout d'une session de formation" class="w-full h-auto">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-6 flex justify-between">
+                        <button class="prev-step btn bg-[#f6f6f6] hover:bg-[#e0e0e0] text-[#036093] font-medium py-2 px-6 border border-[#036093]">Précédent</button>
+                        <button class="next-step btn bg-[#036093] hover:bg-[#025380] text-white font-medium py-2 px-6">Suivant</button>
+                    </div>
+                </div>
+
+                <div id="step-4" class="step bg-[#ffffff] rounded-[20px] shadow-md p-6 mb-6">
+                    <h2 class="text-2xl font-semibold text-[#036093] mb-4">Étape 4: Activer la Session</h2>
+                    <div class="flex flex-col md:flex-row gap-6">
+                        <div class="md:w-1/2">
+                            <ol class="list-decimal pl-5 space-y-3">
+                                <li>Vérifiez le récapitulatif de la session</li>
+                                <li>Cliquez sur le bouton <span class="font-semibold text-[#fb9b4e]">"Activer la Session"</span> pour la rendre accessible</li>
+                                <li>Une fois activée, elle apparaît sur SimulPhone pour les participants</li>
+                            </ol>
+                        </div>
+                        <div class="md:w-1/2">
+                            <div class="screenshot bg-[#f6f6f6] relative">
+                                <img src="https://raw.githubusercontent.com/Michael-AnthroPi/SimulPhoneAcademie/8fe36e93b257c8c899176622b51ad9ee4d5bf4f7/4.png" alt="Bouton pour activer une session sur SimulForge" class="w-full h-auto">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-6 flex justify-between">
+                        <button class="prev-step btn bg-[#f6f6f6] hover:bg-[#e0e0e0] text-[#036093] font-medium py-2 px-6 border border-[#036093]">Précédent</button>
+                        <button class="next-step btn bg-[#036093] hover:bg-[#025380] text-white font-medium py-2 px-6">Suivant</button>
+                    </div>
+                </div>
+
+                <div id="step-5" class="step bg-[#ffffff] rounded-[20px] shadow-md p-6 mb-6">
+                    <h2 class="text-2xl font-semibold text-[#036093] mb-4">Étape 5: Connexion à SimulPhone</h2>
+                     <div class="flex flex-col md:flex-row gap-6">
+                        <div class="md:w-1/2">
+                            <ol class="list-decimal pl-5 space-y-3">
+                                <li>Ouvrez un nouvel onglet et accédez à <span class="font-semibold text-[#50b8ff]">simulphone.com</span></li>
+                                <li><b>Formateurs :</b> connectez-vous avec vos identifiants SimulForge</li>
+                                <li><b>Stagiaires :</b> se connectent avec leur e-mail et le mot de passe de la formation</li>
+                            </ol>
+                        </div>
+                        <div class="md:w-1/2">
+                            <div class="screenshot bg-[#f6f6f6] relative">
+                                <img src="https://raw.githubusercontent.com/Michael-AnthroPi/SimulPhoneAcademie/8fe36e93b257c8c899176622b51ad9ee4d5bf4f7/5.png" alt="Page de connexion de SimulPhone" class="w-full h-auto">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-6 flex justify-between">
+                        <button class="prev-step btn bg-[#f6f6f6] hover:bg-[#e0e0e0] text-[#036093] font-medium py-2 px-6 border border-[#036093]">Précédent</button>
+                        <button class="next-step btn bg-[#036093] hover:bg-[#025380] text-white font-medium py-2 px-6">Suivant</button>
+                    </div>
+                </div>
+
+                <div id="step-6" class="step bg-[#ffffff] rounded-[20px] shadow-md p-6 mb-6">
+                    <h2 class="text-2xl font-semibold text-[#036093] mb-4">Étape 6: Interface Formateur SimulPhone</h2>
+                    <div class="flex flex-col md:flex-row gap-6">
+                        <div class="md:w-1/2">
+                            <ol class="list-decimal pl-5 space-y-3">
+                                <li>Vous voyez la liste des stagiaires inscrits</li>
+                                <li>Un <b>téléphone vert</b> apparaît à côté d'un stagiaire prêt</li>
+                                <li>Cliquez sur l'icône pour démarrer la simulation</li>
+                                <li>Utilisez les outils pour envoyer les bandes sonores du scénario</li>
+                            </ol>
+                        </div>
+                        <div class="md:w-1/2">
+                           <div class="screenshot bg-[#f6f6f6] relative">
+                                <img src="https://raw.githubusercontent.com/Michael-AnthroPi/SimulPhoneAcademie/8fe36e93b257c8c899176622b51ad9ee4d5bf4f7/6.png" alt="Interface formateur sur SimulPhone avec la liste des stagiaires" class="w-full h-auto">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-6 flex justify-between">
+                        <button class="prev-step btn bg-[#f6f6f6] hover:bg-[#e0e0e0] text-[#036093] font-medium py-2 px-6 border border-[#036093]">Précédent</button>
+                        <button class="next-step btn bg-[#036093] hover:bg-[#025380] text-white font-medium py-2 px-6">Suivant</button>
+                    </div>
+                </div>
+
+                <div id="step-7" class="step bg-[#ffffff] rounded-[20px] shadow-md p-6 mb-6">
+                    <h2 class="text-2xl font-semibold text-[#036093] mb-4">Étape 7: Interface Stagiaire SimulPhone</h2>
+                    <div class="flex flex-col md:flex-row gap-6">
+                        <div class="md:w-1/2">
+                            <ol class="list-decimal pl-5 space-y-3">
+                                <li>Les stagiaires ont trois options :</li>
+                                <li><span class="font-semibold text-[#50b8ff]">"Simulation"</span> : Participer à un appel.</li>
+                                <li><span class="font-semibold text-[#50b8ff]">"Réécoute"</span> : Écouter les appels passés.</li>
+                                <li><span class="font-semibold text-[#50b8ff]">"Escape Game"</span> : Accéder aux ateliers autonomes.</li>
+                            </ol>
+                        </div>
+                        <div class="md:w-1/2">
+                            <div class="screenshot bg-[#f6f6f6] relative">
+                                <img src="https://raw.githubusercontent.com/Michael-AnthroPi/SimulPhoneAcademie/8fe36e93b257c8c899176622b51ad9ee4d5bf4f7/7.png" alt="Interface stagiaire sur SimulPhone avec les trois options" class="w-full h-auto">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-6 flex justify-between">
+                        <button class="prev-step btn bg-[#f6f6f6] hover:bg-[#e0e0e0] text-[#036093] font-medium py-2 px-6 border border-[#036093]">Précédent</button>
+                        <button class="next-step btn bg-[#036093] hover:bg-[#025380] text-white font-medium py-2 px-6">Suivant</button>
+                    </div>
+                </div>
+
+                <div id="step-8" class="step bg-[#ffffff] rounded-[20px] shadow-md p-6 mb-6">
+                    <h2 class="text-2xl font-semibold text-[#036093] mb-4">Étape 8: Analyse AnthroScoPi</h2>
+                    <div class="flex flex-col md:flex-row gap-6">
+                        <div class="md:w-1/2">
+                            <ol class="list-decimal pl-5 space-y-3">
+                                <li>Retournez sur SimulForge, section <span class="font-semibold text-[#50b8ff]">"Analyse" > "AnthroScoPi"</span></li>
+                                <li>Sélectionnez la formation et le stagiaire</li>
+                                <li>Consultez le rapport détaillé (temps de décision, analyse cognitive...)</li>
+                                <li>Utilisez ces données pour le débriefing</li>
+                            </ol>
+                        </div>
+                        <div class="md:w-1/2">
+                            <div class="screenshot bg-[#f6f6f6] relative">
+                                <img src="https://raw.githubusercontent.com/Michael-AnthroPi/SimulPhoneAcademie/8fe36e93b257c8c899176622b51ad9ee4d5bf4f7/8.png" alt="Rapport d'analyse AnthroScoPi sur SimulForge" class="w-full h-auto">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-6 flex justify-between">
+                        <button class="prev-step btn bg-[#f6f6f6] hover:bg-[#e0e0e0] text-[#036093] font-medium py-2 px-6 border border-[#036093]">Précédent</button>
+                        <button class="next-step btn bg-[#036093] hover:bg-[#025380] text-white font-medium py-2 px-6">Terminer</button>
+                    </div>
+                </div>
+                
+                <div id="step-9" class="step bg-[#ffffff] rounded-[20px] shadow-md p-6 mb-6">
+                    <h2 class="text-2xl font-semibold text-[#036093] mb-4">Conseils Supplémentaires</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="bg-[#f6f6f6] p-4 rounded-[20px] border border-[#50b8ff]">
+                             <h3 class="text-lg font-medium text-[#036093] mb-2">Création de Comptes Stagiaires</h3>
+                             <p class="text-gray-700">Dans "Organisation Utilisateur" sur SimulForge, vous pouvez créer les comptes stagiaires en utilisant leur nom, prénom, et une adresse e-mail (même fictive).</p>
+                        </div>
+                        <div class="bg-[#f6f6f6] p-4 rounded-[20px] border border-[#50b8ff]">
+                            <h3 class="text-lg font-medium text-[#036093] mb-2">Droits des Formateurs</h3>
+                            <p class="text-gray-700">Vérifiez que tous les formateurs ont les droits nécessaires dans "Modifier les Informations" de leur profil sur SimulForge.</p>
+                        </div>
+                        <div class="bg-[#f6f6f6] p-4 rounded-[20px] border border-[#50b8ff]">
+                             <h3 class="text-lg font-medium text-[#036093] mb-2">Débriefing Efficace</h3>
+                             <p class="text-gray-700">Après les simulations, organisez un débriefing général pour discuter des situations, des décisions prises, et des améliorations possibles.</p>
+                        </div>
+                        <div class="bg-[#f6f6f6] p-4 rounded-[20px] border border-[#50b8ff]">
+                             <h3 class="text-lg font-medium text-[#036093] mb-2">Assistance technique</h3>
+                             <ul class="space-y-2 text-gray-700">
+                                 <li class="flex items-center">
+                                     <i class="fa-solid fa-phone fa-fw mr-2" style="color: #50b8ff;"></i>
+                                     <a href="tel:+33607695926" class="hover:underline">+ 33 (0) 6 07 69 59 26</a>
+                                 </li>
+                                 <li class="flex items-center">
+                                     <i class="fa-solid fa-envelope fa-fw mr-2" style="color: #036093;"></i>
+                                     <a href="mailto:assistance@anthropi.fr" class="hover:underline">assistance@anthropi.fr</a>
+                                 </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="mt-6 flex justify-between">
+                        <button class="prev-step btn bg-[#f6f6f6] hover:bg-[#e0e0e0] text-[#036093] font-medium py-2 px-6 border border-[#036093]">Précédent</button>
+                        <button id="restart-btn" class="btn bg-[#face37] hover:bg-[#e9b82c] text-[#036093] font-medium py-2 px-6">Recommencer le guide</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="bg-[#ffffff] rounded-[20px] shadow-md p-6 mt-8">
+                 <h2 class="text-2xl font-semibold text-[#036093] mb-4">Référence Rapide</h2>
+                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                     <div class="border border-[#50b8ff] rounded-[20px] p-4">
+                         <h3 class="text-lg font-medium text-[#036093] mb-2">SimulForge</h3>
+                         <ul class="list-disc pl-5 space-y-1 text-gray-700">
+                             <li>URL: simulforge.simulphone.com</li>
+                             <li>Gestion des formations, sessions et utilisateurs</li>
+                             <li>Analyse des performances (AnthroScoPi)</li>
+                         </ul>
+                     </div>
+                     <div class="border border-[#50b8ff] rounded-[20px] p-4">
+                         <h3 class="text-lg font-medium text-[#036093] mb-2">SimulPhone</h3>
+                         <ul class="list-disc pl-5 space-y-1 text-gray-700">
+                             <li>URL: simulphone.com</li>
+                             <li>Interface de simulation et ateliers</li>
+                             <li>Réécoute et débriefing</li>
+                         </ul>
+                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Variables
+            let currentStep = 1;
+            const totalSteps = 9;
+            const steps = document.querySelectorAll('.step');
+            const progressBar = document.getElementById('progress-bar');
+            const progressPercentageText = document.getElementById('progress-percentage');
+            const guideContainer = document.getElementById('guide-container');
+
+            // --- Fonctions ---
+
+            function updateProgressBar() {
+                const percentage = ((currentStep - 1) / (totalSteps - 1)) * 100;
+                progressBar.style.width = `${percentage}%`;
+                progressPercentageText.style.left = `${percentage}%`;
+                progressPercentageText.textContent = `${Math.round(percentage)}%`;
+            }
+
+            function showStep(stepNumber) {
+                // Fait défiler la page vers le haut du guide pour une meilleure expérience
+                guideContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+                steps.forEach(step => {
+                    step.classList.remove('active');
+                });
+                
+                document.getElementById(`step-${stepNumber}`).classList.add('active');
+                
+                updateProgressBar();
+                updatePlatformTab();
+            }
+
+            function setActivePlatform(platform) {
+                document.getElementById('simulforge-tab').classList.toggle('active', platform === 'simulforge');
+                document.getElementById('simulphone-tab').classList.toggle('active', platform === 'simulphone');
+            }
+
+            function updatePlatformTab() {
+                if (currentStep >= 1 && currentStep <= 4) {
+                    setActivePlatform('simulforge');
+                } else if (currentStep >= 5 && currentStep <= 7) {
+                    setActivePlatform('simulphone');
+                } else if (currentStep >= 8) {
+                    setActivePlatform('simulforge');
+                }
+            }
+
+            // --- Écouteurs d'événements ---
+
+            document.querySelectorAll('.next-step').forEach(button => {
+                button.addEventListener('click', () => {
+                    if (currentStep < totalSteps) {
+                        currentStep++;
+                        showStep(currentStep);
+                    }
+                });
+            });
+
+            document.querySelectorAll('.prev-step').forEach(button => {
+                button.addEventListener('click', () => {
+                    if (currentStep > 1) {
+                        currentStep--;
+                        showStep(currentStep);
+                    }
+                });
+            });
+
+            document.getElementById('restart-btn').addEventListener('click', () => {
+                currentStep = 1;
+                showStep(currentStep);
+            });
+            
+            document.getElementById('simulforge-tab').addEventListener('click', () => {
+                currentStep = 1;
+                showStep(currentStep);
+            });
+            
+            document.getElementById('simulphone-tab').addEventListener('click', () => {
+                currentStep = 5;
+                showStep(currentStep);
+            });
+
+            // --- Initialisation ---
+            showStep(currentStep);
+        });
+    </script>
+</body>
+</html>
